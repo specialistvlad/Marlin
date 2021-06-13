@@ -384,6 +384,8 @@
 
 #elif MB(MKS_SGEN)
   #include "lpc1769/pins_MKS_SGEN.h"            // LPC1769                                env:LPC1769
+#elif MB(MKS_SGEN_L_V2)
+  #include "lpc1769/pins_MKS_SGEN_L_V2.h"       // LPC1769                                env:LPC1769
 #elif MB(AZTEEG_X5_GT)
   #include "lpc1769/pins_AZTEEG_X5_GT.h"        // LPC1769                                env:LPC1769
 #elif MB(AZTEEG_X5_MINI)
