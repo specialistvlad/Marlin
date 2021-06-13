@@ -379,7 +379,7 @@ void GcodeSuite::G28() {
     // Home Y (after X)
     if (DISABLED(HOME_Y_BEFORE_X) && doY)
       homeaxis(Y_AXIS);
-
+    current_position = (0, 0, current_position.z);
     #if ENABLED(IMPROVE_HOMING_RELIABILITY)
       end_slow_homing(slow_homing);
     #endif
@@ -517,4 +517,5 @@ void GcodeSuite::G28() {
       L64xxManager.set_param((L64XX_axis_t)cv, L6470_ABS_POS, stepper.position(L64XX_axis_xref[cv]));
     }
   #endif
+  current_position.set(0, 0, 0);
 }

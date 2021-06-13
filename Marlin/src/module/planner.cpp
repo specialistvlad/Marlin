@@ -1719,9 +1719,7 @@ bool Planner::_populate_block(block_t * const block, bool split_move,
                 dc = target.c - position.c;
 
   #if EXTRUDERS
-    int32_t de = target.e - position.e;
-  #else
-    constexpr int32_t de = 0;
+  int32_t de = -db - da + (target.e - position.e);
   #endif
 
   /* <-- add a slash to enable
@@ -2587,7 +2585,7 @@ bool Planner::buffer_segment(const float &a, const float &b, const float &c, con
 
   // The target position of the tool in absolute steps
   // Calculate target position in absolute steps
-  const abce_long_t target = {
+   abce_long_t target = {
     int32_t(LROUND(a * settings.axis_steps_per_mm[A_AXIS])),
     int32_t(LROUND(b * settings.axis_steps_per_mm[B_AXIS])),
     int32_t(LROUND(c * settings.axis_steps_per_mm[C_AXIS])),

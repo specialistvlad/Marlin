@@ -1566,8 +1566,15 @@ void homeaxis(const AxisEnum axis) {
   #if HOMING_Z_WITH_PROBE && ENABLED(BLTOUCH)
     if (axis == Z_AXIS && bltouch.deploy()) return; // The initial DEPLOY
   #endif
-
-  do_homing_move(axis, 1.5f * max_length(
+    if (axis == X_AXIS)
+    {
+      do_blocking_move_to(-1000, current_position.y, current_position.z);
+    }
+    else if (axis == Y_AXIS)
+    {
+      do_blocking_move_to(current_position.x, -1000, current_position.z);
+    }
+    do_homing_move(axis, 1.5f * max_length(
     #if ENABLED(DELTA)
       Z_AXIS
     #else
@@ -1811,7 +1818,7 @@ void homeaxis(const AxisEnum axis) {
   #endif
 
   if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPAIR("<<< homeaxis(", axis_codes[axis], ")");
-
+  current_position.set(0, 0, 0);
 } // homeaxis()
 
 #if HAS_WORKSPACE_OFFSET
